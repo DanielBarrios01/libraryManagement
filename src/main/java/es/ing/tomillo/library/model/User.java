@@ -14,6 +14,7 @@ public class User {
     private String name;
     private int id;
     private final List<Book> borrowedBooks;
+    private final List<Book> reservedBooks;
     private static final int MAX_BORROWED_BOOKS = 5;
 
     // Constructor con un maximo de 5 libros prestados
@@ -21,6 +22,7 @@ public class User {
         this.name = name;
         this.id = id;
         this.borrowedBooks = new ArrayList<>();
+        this.reservedBooks = new ArrayList<>();
     }
 
     public String getName() {
@@ -48,7 +50,7 @@ public class User {
     }
 
     // TODO: Implementar método prestarLibro según el ejercicio 2
-    // Debe añadir un libro al array de libros prestados
+    // Debe añadir un libro al array de libros pr   estados
     public void borrowBook(Book book) {
         if (!book.isAvailable()) {
             throw new BookNotAvailableException("El libro '" + book.getTitle() + "' no está disponible.");
@@ -65,6 +67,9 @@ public class User {
     public void returnBook(Book book) {
         if (borrowedBooks.remove(book)) {
             book.setAvailable(true);
+            if (reservedBooks.contains(book)) {
+                System.out.println("Aviso: el libro '" + book.getTitle() + "' tiene una reserva pendiente.");
+            }
         } else {
             System.out.println("Este libro no estaba prestado a este usuario.");
         }
@@ -73,10 +78,11 @@ public class User {
     // TODO: Implementar método reservarLibro según el ejercicio 2
     // Debe permitir reservar libros que no están disponibles
     public void reserveBook(Book book) {
-        if (!book.isAvailable()) {
-            System.out.println("El libro ya está reservado.");
+        if (book.isAvailable()) {
+            System.out.println("El libro está disponible, puedes pedirlo prestado directamente.");
         } else {
-            System.out.println("El libro está disponible para préstamo.");
+            reservedBooks.add(book);
+            System.out.println("Reserva realizada para: " + book.getTitle());
         }
     }
 
