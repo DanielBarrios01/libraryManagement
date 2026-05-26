@@ -4,22 +4,39 @@ import java.time.LocalDate;
 
 public class Loan {
 
-    // TODO: Ejercicio 7 — Añadir los atributos:
-    //   - book (Book)        el libro prestado
-    //   - user (User)        el usuario que lo tiene
-    //   - loanDate (LocalDate)   día en que se realizó el préstamo
-    //   - dueDate (LocalDate)    fecha límite de devolución (14 días después de loanDate)
+    // Ejercicio 7
+    private Book book;
+    private User user;
+    private LocalDate loanDate;
+    private LocalDate dueDate;
 
-    // TODO: Ejercicio 7 — Implementar el constructor Loan(Book book, User user, LocalDate loanDate)
-    //   En el constructor calcula automáticamente dueDate = loanDate.plusDays(14)
+    // Ejercicio 7
     public Loan(Book book, User user, LocalDate loanDate) {
+        this.book = book;
+        this.user = user;
+        this.loanDate = loanDate;
+        this.dueDate = loanDate.plusDays(14);
     }
 
-    // TODO: Ejercicio 7 — Añadir getters: getBook(), getUser(), getLoanDate(), getDueDate()
+    // Ejercicio 7
+    public Book getBook() {
+        return book;
+    }
 
-    // TODO: Ejercicio 7 — isOverdue() devuelve true si hoy es posterior a dueDate
-    //   Pista: usa LocalDate.now().isAfter(dueDate)
+    public User getUser() {
+        return user;
+    }
+
+    public LocalDate getLoanDate() {
+        return loanDate;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    // Ejercicio 7
     public boolean isOverdue() {
-        return false;
+        return LocalDate.now().isAfter(dueDate);
     }
 }

@@ -16,14 +16,14 @@ public class Library {
     public Library() {
         this.users = new ArrayList<>();
         this.books = new ArrayList<>();
-        
+
         // Cargar datos de ejemplo
         loadSampleData();
     }
 
     private void loadSampleData() {
         users.addAll(SampleData.SAMPLE_USERS);
-        // books.addAll(SampleData.SAMPLE_BOOKS); // descomenta cuando implementes Book (ejercicio 1)
+        books.addAll(SampleData.SAMPLE_BOOKS); // descomenta cuando implementes Book (ejercicio 1)
         System.out.println("Datos de ejemplo cargados: " + users.size() + " usuarios, " + books.size() + " libros.");
     }
 
@@ -41,7 +41,8 @@ public class Library {
     }
 
     public void addBook(Book book) {
-        // TODO: Ejercicio 3 - añadir el libro a la lista 'books'
+        books.add(book);
+        // Ejercicio 3 - añadir el libro a la lista 'books'
     }
 
     public List<Book> getBooks() {
@@ -62,13 +63,23 @@ public class Library {
         user.returnBook(book);
     }
 
-    // TODO: Ejercicio 5 - recorrer 'books' y devolver el libro cuyo título coincida (ignora mayúsculas)
+    // Ejercicio 5 - recorrer 'books' y devolver el libro cuyo título coincida (ignora mayúsculas)
     public Book searchBookByTitle(String title) {
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                return book;
+            }
+        }
         return null;
     }
 
-    // TODO: Ejercicio 5 - recorrer 'books' y devolver el libro cuyo autor coincida (ignora mayúsculas)
+    // Ejercicio 5 - recorrer 'books' y devolver el libro cuyo autor coincida (ignora mayúsculas)
     public Book searchBookByAuthor(String author) {
+        for (Book book : books) {
+            if (book.getAuthor().equalsIgnoreCase(author)) {
+                return book;
+            }
+        }
         return null;
     }
 
@@ -92,15 +103,17 @@ public class Library {
         return null;
     }
 
-    // TODO: Ejercicio 8 — usando stream().filter() devuelve la lista de libros disponibles
+    // Ejercicio 8 — usando stream().filter() devuelve la lista de libros disponibles
     public List<Book> getAvailableBooks() {
-        return new ArrayList<>();
+        return books.stream()
+                .filter(b -> b.isAvailable())
+                .collect(java.util.stream.Collectors.toList());
     }
 
-    // TODO: Ejercicio 8 — usando stream().filter() devuelve todos los libros del autor dado (ignora mayúsculas)
+    // Ejercicio 8 — usando stream().filter() devuelve todos los libros del autor dado (ignora mayúsculas)
     public List<Book> searchAllBooksByAuthor(String author) {
-        return new ArrayList<>();
+        return books.stream()
+                .filter(b -> b.getAuthor().equalsIgnoreCase(author))
+                .collect(java.util.stream.Collectors.toList());
     }
-
 }
-
