@@ -241,4 +241,23 @@ public class LibraryTest {
     void searchAllBooksByAuthorReturnsEmptyWhenNotFound() {
         assertTrue(library.searchAllBooksByAuthor("Dickens").isEmpty());
     }
+    @Test
+    void returnBookNotBorrowedDoesNothing() {
+        user.returnBook(book1);
+        assertTrue(book1.isAvailable());
+        assertTrue(user.getBorrowedBooks().isEmpty());
+    }
+    @Test
+    void userCanReserveUnavailableBook() {
+        User otherUser = new User("Bob", 100);
+        otherUser.borrowBook(book1);
+        user.reserveBook(book1);
+        assertTrue(user.getReservedBooks().contains(book1));
+    }
+    @Test
+    void searchAllBooksByAuthorReturnsEmptyListForUnknownAuthor() {
+        List<Book> result = library.searchAllBooksByAuthor("Autor Inexistente");
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
 }

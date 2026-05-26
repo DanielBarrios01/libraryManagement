@@ -44,6 +44,9 @@ public class User {
     public List<Book> getBorrowedBooks() {
         return borrowedBooks;
     }
+    public List<Book> getReservedBooks() {
+        return reservedBooks;
+    }
 
     public int getBookCount() {
         return borrowedBooks.size();
