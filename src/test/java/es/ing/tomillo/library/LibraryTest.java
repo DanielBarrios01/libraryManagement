@@ -241,23 +241,55 @@ public class LibraryTest {
     void searchAllBooksByAuthorReturnsEmptyWhenNotFound() {
         assertTrue(library.searchAllBooksByAuthor("Dickens").isEmpty());
     }
+    //TODO: Ejercicio 4 (Propios tests).
+
+    //todo: Ej 4 (Test 1).
+
+    //Test 1: ¿Qué pasa si se intenta devolver un libro que el usuario no tiene prestado?
+    //@Test: Marca el métod0 como un test.
+    //Void returnBookNotBorrowedDoesNothing(): El nombre describe lo que prueba: "Devolver un libro que no tenías no hace nada"
+    //user.returnBook(book1): El usuario intenta devolver book1 sin haberlo pedido nunca.
+    //assertTrue(book1.isAvailable()): Comprueba que book1 sigue disponible porque nunca se prestó.
+    //assertTrue(user.getBorrowedBooks().isEmpty()): Comprueba que la lista de préstamos sigue vacía.
+    //Test 1: Si devuelves un libro que nunca pediste, el libro sigue disponible y la lista sigue vacía.
+
     @Test
-    void returnBookNotBorrowedDoesNothing() {
-        user.returnBook(book1);
+    void returnBookNotBorrowedDoesNothing()
+        {user.returnBook(book1);
         assertTrue(book1.isAvailable());
-        assertTrue(user.getBorrowedBooks().isEmpty());
-    }
+        assertTrue(user.getBorrowedBooks().isEmpty());}
+
+    //todo: Ej 4 (Test 2).
+
+    //Test 2: Quisimos comprobar que un usuario puede reservar un libro que está prestado.
+    //@Test: Marca el métod0 como un test.
+    //Void userCanReserveUnavailableBook(): "Un usuario puede reservar un libro no disponible".
+    //User otherUser = new User("Dani", 100): Creamos otro usuario llamado Dani.
+    //otherUser.borrowBook(book1): Dani pide prestado book1, ahora ya no está disponible.
+    //user.reserveBook(book1): Nuestro usuario intenta reservar ese libro.
+    //assertTrue(user.getReservedBooks().contains(book1)): Comprueba que book1 aparece en la lista de reservas.
+    //Test 2: Si un usuario tiene un libro prestado, otro usuario puede reservarlo y aparece en su lista de reservas.
+
     @Test
-    void userCanReserveUnavailableBook() {
-        User otherUser = new User("Bob", 100);
+    void userCanReserveUnavailableBook()
+        {User otherUser = new User("Dani", 100);
         otherUser.borrowBook(book1);
         user.reserveBook(book1);
-        assertTrue(user.getReservedBooks().contains(book1));
-    }
+        assertTrue(user.getReservedBooks().contains(book1));}
+
+    //todo: Ej 4 (Test 3).
+
+    //Test 3: Quisimos comprobar que si buscamos un autor que no existe, el programa no se rompe devolviendo null, sino que devuelve una lista vacía.
+    //@Test — marca este métod0 como un test.
+    //Void searchAllBooksByAuthorReturnsEmptyListForUnknownAuthor(): "buscar autor inexistente devuelve lista vacía".
+    //List<Book> result = library.searchAllBooksByAuthor("Autor Inexistente"): Buscamos un autor que no existe y guardamos el resultado en result.
+    //assertNotNull(result): Comprueba que no devuelve null, sino una lista.
+    //assertTrue(result.isEmpty()): Comprueba que esa lista está vacía.
+    //Test 3: Si buscas un autor que no existe, el programa devuelve una lista vacía en vez de romperse.
+
     @Test
-    void searchAllBooksByAuthorReturnsEmptyListForUnknownAuthor() {
-        List<Book> result = library.searchAllBooksByAuthor("Autor Inexistente");
+    void searchAllBooksByAuthorReturnsEmptyListForUnknownAuthor()
+    {List<Book> result = library.searchAllBooksByAuthor("Autor Inexistente");
         assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
+        assertTrue(result.isEmpty());}
 }
